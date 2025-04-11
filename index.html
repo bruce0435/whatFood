@@ -11,259 +11,184 @@
         padding: 20px;
         color: #333;
     }
-    h1 {
-        margin-top: 20px;
-        font-size: 36px;
-        color: #006666;
-        letter-spacing: 2px;
-    }
-    .tab {
-        margin-top: 20px;
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: center;
-        gap: 15px;
-    }
+    h1 { margin-top: 20px; font-size: 36px; color: #006666; letter-spacing: 2px; }
+
+    /* 按鈕與 Tab */
+    .tab { margin-top: 20px; display: flex; flex-wrap: wrap; justify-content: center; gap: 15px; }
     .tab button, #startBtn, #saveBtn {
-        padding: 16px 32px;
-        font-size: 22px;
-        margin: 10px;
-        border: 2px solid #ADD8E6;
-        background-color: #FFFFFF;
-        color: #008B8B;
-        cursor: pointer;
-        border-radius: 16px;
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-        transition: background-color 0.3s, color 0.3s, border-color 0.3s, box-shadow 0.3s, transform 0.2s;
+        padding: 16px 32px; font-size: 22px; margin: 10px;
+        border: 2px solid #ADD8E6; background:#FFF; color:#008B8B; cursor:pointer;
+        border-radius: 16px; box-shadow:0 4px 8px rgba(0,0,0,.1);
+        transition:background .3s,color .3s,border-color .3s,box-shadow .3s,transform .2s;
     }
     .tab button:hover, #startBtn:hover, #saveBtn:hover {
-        background-color: #008B8B;
-        color: #ffffff;
-        border-color: #008B8B;
-        box-shadow: 0 6px 10px rgba(0, 0, 0, 0.2);
+        background:#008B8B; color:#FFF; border-color:#008B8B; box-shadow:0 6px 10px rgba(0,0,0,.2);
     }
-    #categorySelect, #settingCategorySelect {
-        margin-top: 20px;
-        font-size: 20px;
-        padding: 10px 16px;
-        border-radius: 8px;
-        border: 2px solid #ADD8E6;
-    }
-    #wheel, #settingsPage {
-        margin-top: 30px;
-    }
-    #wheel {
-        width: 90%;
-        max-width: 600px;
-        height: 180px;
-        margin: 20px auto;
-        border: 3px dashed #008B8B;
-        background-color: #ffffff;
-        overflow: hidden;
-        position: relative;
-        font-size: 28px;
-        font-weight: bold;
-        color: #333;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        border-radius: 16px;
-        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
-    }
-    .item {
-        height: 48px;
-        line-height: 48px;
-    }
-    #recentDraws {
-        margin-top: 20px;
-        display: flex;
-        justify-content: center;
-        flex-wrap: wrap;
-        gap: 10px;
-    }
-    .recent-card {
-        padding: 10px 20px;
-        background: #E0FFFF;
-        border: 2px solid #ADD8E6;
-        border-radius: 12px;
-        box-shadow: 2px 2px 6px rgba(0,0,0,0.1);
-        font-size: 16px;
-    }
-    #totalCount, #settingTotalCount {
-        margin-top: 10px;
-        font-size: 18px;
-        color: #666;
-    }
-    #foodList {
-        width: 90%;
-        max-width: 400px;
-        height: 220px;
-        font-size: 18px;
-        padding: 10px;
-        border: 2px solid #ADD8E6;
-        border-radius: 8px;
-    }
-    @media (max-width: 600px) {
-        h1 {
-            font-size: 28px;
-        }
-        .tab button, #startBtn, #saveBtn {
-            width: 90%;
-            padding: 14px 24px;
-            font-size: 20px;
-        }
-        #wheel {
-            height: 160px;
-            font-size: 24px;
-        }
-        #foodList {
-            height: 200px;
-        }
-    }
+
+    /* 選單 */
+    #categorySelect,#settingCategorySelect { margin-top:20px; font-size:20px; padding:10px 16px; border-radius:8px; border:2px solid #ADD8E6; }
+
+    /* 轉盤 */
+    #wheel{width:90%;max-width:600px;height:180px;margin:20px auto;border:3px dashed #008B8B;background:#FFF;overflow:hidden;position:relative;font-size:28px;font-weight:bold;color:#333;display:flex;flex-direction:column;align-items:center;justify-content:center;border-radius:16px;box-shadow:0 6px 12px rgba(0,0,0,.1)}
+    .item{height:48px;line-height:48px}
+
+    /* 最近抽過卡片 */
+    #recentDraws{margin-top:20px;display:flex;justify-content:center;flex-wrap:wrap;gap:10px}
+    .recent-card{padding:10px 20px;background:#E0FFFF;border:2px solid #ADD8E6;border-radius:12px;box-shadow:2px 2px 6px rgba(0,0,0,.1);font-size:16px;cursor:pointer;transition:transform .2s,opacity .2s}
+    .recent-card:hover{transform:scale(1.05)}
+    .recent-card:active{opacity:.6}
+
+    #totalCount,#settingTotalCount{margin-top:10px;font-size:18px;color:#666}
+    #foodList{width:90%;max-width:400px;height:220px;font-size:18px;padding:10px;border:2px solid #ADD8E6;border-radius:8px}
+
+    @media(max-width:600px){h1{font-size:28px}.tab button,#startBtn,#saveBtn{width:90%;padding:14px 24px;font-size:20px}#wheel{height:160px;font-size:24px}#foodList{height:200px}}
 </style>
 </head>
 <body>
-
 <h1>吃什麼？</h1>
 <div class="tab">
-    <button id="wheelTab">開始抽選！</button>
-    <button id="settingTab">設定清單</button>
+  <button id="wheelTab">開始抽選！</button>
+  <button id="settingTab">設定清單</button>
 </div>
 
+<!-- 轉盤頁 -->
 <div id="wheelPage">
-    <select id="categorySelect">
-        <option value="all">全部</option>
-        <option value="main">正餐</option>
-        <option value="snack">小吃</option>
-        <option value="dessert">飲料甜點</option>
-    </select>
-    <div id="wheel">
-        <div id="itemContainer"></div>
-        <div id="totalCount"></div>
-    </div>
-    <button id="startBtn">開始</button>
-    <div id="recentDraws"></div>
+  <select id="categorySelect">
+    <option value="all">全部</option>
+    <option value="main">正餐</option>
+    <option value="snack">小吃</option>
+    <option value="dessert">飲料甜點</option>
+  </select>
+  <div id="wheel">
+    <div id="itemContainer"></div>
+    <div id="totalCount"></div>
+  </div>
+  <button id="startBtn">開始</button>
+  <div id="recentDraws"></div>
 </div>
 
+<!-- 設定頁 -->
 <div id="settingsPage" style="display:none;">
-    <select id="settingCategorySelect">
-        <option value="main">正餐</option>
-        <option value="snack">小吃</option>
-        <option value="dessert">飲料甜點</option>
-    </select>
-    <div id="settingTotalCount"></div>
-    <textarea id="foodList"></textarea><br>
-    <button id="saveBtn">儲存清單</button>
+  <select id="settingCategorySelect">
+    <option value="main">正餐</option>
+    <option value="snack">小吃</option>
+    <option value="dessert">飲料甜點</option>
+  </select>
+  <div id="settingTotalCount"></div>
+  <textarea id="foodList"></textarea><br>
+  <button id="saveBtn">儲存清單</button>
 </div>
 
 <script>
-document.addEventListener('DOMContentLoaded', function() {
-   const foods = {
-        main: ['熊家湯包', '巫茶泰', '巫泰式燒烤', '味泉米糕店', '小川家', '海將軍12元壽司', '御姐越南法式手工麵包', '享麻酸辣粉', '川涼涼滷KAWARYORYO', '夯霸燒肉飯', '麵先森滑蛋蝦仁飯', '夜夜見來蛋包飯', '沙茶魷魚焿', '忠孝路小籠包', '牧禾堂', '大胖排骨飯.蚵仔煎', '1973古早味陽春麵', '忠孝夜市廣式滷味', '狀元紅廣東粥、鍋燒麵', '胖嫂大餛飩', '好萊自助餐', '幸花鷄白湯拉麵', '源池上飯包', '鷄伯嘉義火雞肉飯', '朝正泰南洋料理', '唯吾知足自在素食'],
-        snack: ['徐大姐炸香香', '怪獸披薩', '卡霸咬一口 Tasty Bitez', '肉一手 肉夾饃', '老牌潤餅大王', 'Q禾豐邑地瓜球', '可以可以地瓜球', '蛋四分雞蛋仔交易所', '掌門人雞蛋糕', '菱角俠菱角酥', '阿緣鹽酥雞', '興達港香炸螃蟹', '望高樓 串串燒 雞蛋仔', '植人炸雞忠孝總店', '益廚現烤酥皮濃湯'],
-        dessert: ['茗陽甘蔗牛奶大王', '炎伯紅茶', '蔡家豆花', '永德堂', '巫茶泰', '50嵐', '清心', '參杯', '大苑子', '台灣第一味', '南海茶道', '古玥茶', '花茶大師', '新井茶', '大茗', '龜記茗品']
-    };
+document.addEventListener('DOMContentLoaded',()=>{
+  /* ------------ 資料區 ------------ */
+  const foods={
+    main:['熊家湯包','巫茶泰','巫泰式燒烤','味泉米糕店','小川家','海將軍12元壽司','御姐越南法式手工麵包','享麻酸辣粉','川涼涼滷KAWARYORYO','夯霸燒肉飯','麵先森滑蛋蝦仁飯','夜夜見來蛋包飯','沙茶魷魚焿','忠孝路小籠包','牧禾堂','大胖排骨飯.蚵仔煎','1973古早味陽春麵','忠孝夜市廣式滷味','狀元紅廣東粥、鍋燒麵','胖嫂大餛飩','好萊自助餐','幸花鷄白湯拉麵','源池上飯包','鷄伯嘉義火雞肉飯','朝正泰南洋料理','唯吾知足自在素食'],
+    snack:['徐大姐炸香香','怪獸披薩','卡霸咬一口 Tasty Bitez','肉一手 肉夾饃','老牌潤餅大王','Q禾豐邑地瓜球','可以可以地瓜球','蛋四分雞蛋仔交易所','掌門人雞蛋糕','菱角俠菱角酥','阿緣鹽酥雞','興達港香炸螃蟹','望高樓 串串燒 雞蛋仔','植人炸雞忠孝總店','益廚現烤酥皮濃湯'],
+    dessert:['茗陽甘蔗牛奶大王','炎伯紅茶','蔡家豆花','永德堂','巫茶泰','50嵐','清心','參杯','大苑子','台灣第一味','南海茶道','古玥茶','花茶大師','新井茶','大茗','龜記茗品']
+  };
 
-    let currentFoods = [];
-    let recentDrawsList = [];
-    const recentMax = 3;
+  /* ------------ 變數/DOM ------------ */
+  let currentFoods=[];
+  const recentMax=3;
+  let recentDrawsList=[];
 
-    const itemContainer = document.getElementById('itemContainer');
-    const totalCount = document.getElementById('totalCount');
-    const settingTotalCount = document.getElementById('settingTotalCount');
-    const categorySelect = document.getElementById('categorySelect');
-    const settingCategorySelect = document.getElementById('settingCategorySelect');
-    const foodList = document.getElementById('foodList');
+  const itemContainer=document.getElementById('itemContainer');
+  const totalCount=document.getElementById('totalCount');
+  const settingTotalCount=document.getElementById('settingTotalCount');
+  const categorySelect=document.getElementById('categorySelect');
+  const settingCategorySelect=document.getElementById('settingCategorySelect');
+  const foodList=document.getElementById('foodList');
+  const recentDrawsContainer=document.getElementById('recentDraws');
 
-    function createItems() {
-        totalCount.style.display = 'block';
-        itemContainer.innerHTML = '';
-        const div = document.createElement('div');
-        div.className = 'item';
-        div.textContent = '準備抽選...';
-        itemContainer.appendChild(div);
-    }
+  /* ------------ 共用函式 ------------ */
+  function renderRecentCards(){
+    recentDrawsContainer.innerHTML=recentDrawsList
+      .map((food,idx)=>`<div class="recent-card" data-idx="${idx}">${food}</div>`)
+      .join('');
+  }
 
-    function loadFoods() {
-        const category = categorySelect.value;
-        if (category === 'all') {
-            currentFoods = [...foods.main, ...foods.snack, ...foods.dessert];
-        } else {
-            currentFoods = foods[category];
-        }
-        totalCount.textContent = `總家數：${currentFoods.length} 家`;
-        createItems();
-    }
+  function createItems(){
+    totalCount.style.display='block';
+    itemContainer.innerHTML='<div class="item">準備抽選...</div>';
+  }
 
-    function loadSettingFoods() {
-        const category = settingCategorySelect.value;
-        foodList.value = foods[category].join('\n');
-        settingTotalCount.textContent = `總家數：${foods[category].length} 家`;
-    }
-
-    function startSpin() {
-        totalCount.style.display = 'none';
-        if (currentFoods.length === 0) {
-            alert('此分類沒有資料，請重新選擇！');
-            return;
-        }
-        let elapsed = 0;
-        let interval = 50;
-        const totalDuration = 4000;
-        const maxInterval = 300;
-        const timer = setInterval(() => {
-            let randomIndex = Math.floor(Math.random() * currentFoods.length);
-            let selectedFood = currentFoods[randomIndex];
-            while (recentDrawsList.includes(selectedFood) && currentFoods.length > recentMax) {
-                randomIndex = Math.floor(Math.random() * currentFoods.length);
-                selectedFood = currentFoods[randomIndex];
-            }
-            itemContainer.innerHTML = `<div class="item">${selectedFood}</div>`;
-            elapsed += interval;
-
-            if (elapsed >= totalDuration) {
-                clearInterval(timer);
-                recentDrawsList.unshift(selectedFood);
-                if (recentDrawsList.length > recentMax) recentDrawsList.pop();
-
-                const recentDrawsContainer = document.getElementById('recentDraws');
-                recentDrawsContainer.innerHTML = recentDrawsList.map(food => `<div class="recent-card">${food}</div>`).join('');
-            }
-
-            if (interval < maxInterval) interval += 10;
-        }, interval);
-    }
-	
-
-    function saveFoods() {
-        const category = settingCategorySelect.value;
-        const lines = foodList.value.split('\n').map(line => line.trim()).filter(line => line);
-        foods[category] = lines;
-        alert('已儲存清單！');
-        settingTotalCount.textContent = `總家數：${foods[category].length} 家`;
-    }
-
-    function showPage(page) {
-        document.getElementById('wheelPage').style.display = page === 'wheelPage' ? 'block' : 'none';
-        document.getElementById('settingsPage').style.display = page === 'settingsPage' ? 'block' : 'none';
-        if (page === 'wheelPage') {
-            createItems();
-        }
-    }
-
-    document.getElementById('wheelTab').addEventListener('click', () => showPage('wheelPage'));
-    document.getElementById('settingTab').addEventListener('click', () => showPage('settingsPage'));
-    document.getElementById('startBtn').addEventListener('click', startSpin);
-    document.getElementById('saveBtn').addEventListener('click', saveFoods);
-    categorySelect.addEventListener('change', loadFoods);
-    settingCategorySelect.addEventListener('change', loadSettingFoods);
-
+  function loadFoods(){
+    const cat=categorySelect.value;
+    currentFoods=(cat==='all')?[...foods.main,...foods.snack,...foods.dessert]:foods[cat];
+    totalCount.textContent=`總家數：${currentFoods.length} 家`;
     createItems();
-    loadFoods();
-    loadSettingFoods();
+  }
+
+  function loadSettingFoods(){
+    const cat=settingCategorySelect.value;
+    foodList.value=foods[cat].join('\n');
+    settingTotalCount.textContent=`總家數：${foods[cat].length} 家`;
+  }
+
+  /* ------------ 抽選 ------------ */
+  function startSpin(){
+    totalCount.style.display='none';
+    if(!currentFoods.length){alert('此分類沒有資料，請重新選擇！');return;}
+    let elapsed=0,interval=50;
+    const totalDuration=4000,maxInterval=300;
+    const timer=setInterval(()=>{
+      let idx=Math.floor(Math.random()*currentFoods.length);
+      let food=currentFoods[idx];
+      while(recentDrawsList.includes(food)&&currentFoods.length>recentMax){
+        idx=Math.floor(Math.random()*currentFoods.length);
+        food=currentFoods[idx];
+      }
+      itemContainer.innerHTML=`<div class="item">${food}</div>`;
+      elapsed+=interval;
+      if(elapsed>=totalDuration){
+        clearInterval(timer);
+        recentDrawsList.unshift(food);
+        if(recentDrawsList.length>recentMax)recentDrawsList.pop();
+        renderRecentCards();
+      }
+      if(interval<maxInterval)interval+=10;
+    },interval);
+  }
+
+  /* ------------ 事件：小卡點擊刪除 ------------ */
+  recentDrawsContainer.addEventListener('click',e=>{
+    const card=e.target.closest('.recent-card');
+    if(!card)return;
+    const idx=+card.dataset.idx;
+    recentDrawsList.splice(idx,1);
+    renderRecentCards();
+  });
+
+  /* ------------ 儲存清單 ------------ */
+  function saveFoods(){
+    const cat=settingCategorySelect.value;
+    foods[cat]=foodList.value.split('\n').map(s=>s.trim()).filter(Boolean);
+    alert('已儲存清單！');
+    settingTotalCount.textContent=`總家數：${foods[cat].length} 家`;
+  }
+
+  /* ------------ 分頁切換 ------------ */
+  function showPage(p){
+    document.getElementById('wheelPage').style.display=p==='wheelPage'?'block':'none';
+    document.getElementById('settingsPage').style.display=p==='settingsPage'?'block':'none';
+    if(p==='wheelPage')createItems();
+  }
+
+  /* ------------ 綁定事件 ------------ */
+  document.getElementById('wheelTab').onclick=()=>showPage('wheelPage');
+  document.getElementById('settingTab').onclick=()=>showPage('settingsPage');
+  document.getElementById('startBtn').onclick=startSpin;
+  document.getElementById('saveBtn').onclick=saveFoods;
+  categorySelect.onchange=loadFoods;
+  settingCategorySelect.onchange=loadSettingFoods;
+
+  /* ------------ 初始化 ------------ */
+  createItems();
+  loadFoods();
+  loadSettingFoods();
+  renderRecentCards();
 });
 </script>
-
 </body>
 </html>
