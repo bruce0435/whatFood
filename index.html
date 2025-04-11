@@ -2,220 +2,165 @@
 <html lang="zh-Hant">
 <head>
 <meta charset="UTF-8">
-<title>吃什麼?</title>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>吃什麼？</title>
 <style>
-    body {
-        font-family: 'Microsoft JhengHei', sans-serif;
-        background: #f8f8f8;
-        text-align: center;
-        padding: 20px;
-    }
-    h1 {
-        margin-top: 20px;
-        font-size: 32px;
-    }
-    .tab {
-        margin-top: 20px;
-    }
-    .tab button {
-        padding: 10px 20px;
-        font-size: 20px;
-        margin: 5px;
-        border: 2px solid #4CAF50;
-        background-color: white;
-        color: #4CAF50;
-        cursor: pointer;
-        border-radius: 8px;
-    }
-    .tab button:hover {
-        background-color: #4CAF50;
-        color: white;
-    }
-    #wheel, #settingsPage {
-        margin-top: 20px;
-    }
-    #wheel {
-        width: 600px;
-        height: 80px;
-        margin: 20px auto;
-        border: 3px solid black;
-        overflow: hidden;
-        position: relative;
-        font-size: 36px;
-        font-weight: bold;
-        color: #333;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-    }
-    .item {
-        height: 100%;
-        line-height: 80px;
-    }
-    #startBtn, #saveBtn {
-        margin: 20px 10px;
-        padding: 10px 20px;
-        font-size: 20px;
-        border: 2px solid #4CAF50;
-        background-color: white;
-        color: #4CAF50;
-        cursor: pointer;
-        border-radius: 8px;
-    }
-    #startBtn:hover, #saveBtn:hover {
-        background-color: #4CAF50;
-        color: white;
-    }
-    #result {
-        margin-top: 30px;
-        font-size: 40px;
-        font-weight: bold;
-        color: #E91E63;
-        display: none;
-        transition: transform 0.3s ease;
-    }
-    #foodList {
-        width: 300px;
-        height: 200px;
-        font-size: 18px;
-    }
-
-    /* 手機版微優化 */
-    @media (max-width: 600px) {
-        h1 {
-            font-size: 24px;
-        }
-        .tab {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 10px;
-        }
-        .tab button, #startBtn, #saveBtn {
-            font-size: 18px;
-            padding: 8px 16px;
-            width: 80%;
-            max-width: 250px;
-        }
-        #wheel {
-            width: 90%;
-            height: 60px;
-            font-size: 24px;
-        }
-        #result {
-            font-size: 28px;
-        }
-        #foodList {
-            width: 90%;
-            max-width: 400px;
-            height: 150px;
-            font-size: 16px;
-        }
-    }
+    body { font-family: 'Microsoft JhengHei', sans-serif; background: #f8f8f8; text-align: center; padding: 20px; }
+    h1 { margin-top: 20px; font-size: 32px; }
+    .tab { margin-top: 20px; }
+    .tab button { padding: 10px 20px; font-size: 20px; margin: 5px; border: 2px solid #4CAF50; background-color: white; color: #4CAF50; cursor: pointer; border-radius: 8px; }
+    .tab button:hover { background-color: #4CAF50; color: white; }
+    #categorySelect, #settingCategorySelect { margin-top: 20px; font-size: 20px; padding: 5px; }
+    #wheel, #settingsPage { margin-top: 20px; }
+    #wheel { width: 600px; height: 120px; margin: 20px auto; border: 3px solid black; overflow: hidden; position: relative; font-size: 24px; font-weight: bold; color: #333; display: flex; flex-direction: column; align-items: center; justify-content: center; }
+    .item { height: 40px; line-height: 40px; }
+    #startBtn, #saveBtn { margin: 20px 10px; padding: 10px 20px; font-size: 20px; border: 2px solid #4CAF50; background-color: white; color: #4CAF50; cursor: pointer; border-radius: 8px; }
+    #startBtn:hover, #saveBtn:hover { background-color: #4CAF50; color: white; }
+    #result { margin-top: 10px; font-size: 28px; font-weight: bold; color: #E91E63; display: none; transition: transform 0.3s ease; }
+    #totalCount, #settingTotalCount { margin-top: 5px; font-size: 18px; color: #666; }
+    #foodList { width: 300px; height: 200px; font-size: 18px; }
 </style>
 </head>
 <body>
 
-<h1>吃什麼?</h1>
+<h1>吃什麼？</h1>
 <div class="tab">
-    <button onclick="showPage('wheelPage')">轉盤</button>
-    <button onclick="showPage('settingsPage')">設定清單</button>
+    <button id="wheelTab">開始抽選！</button>
+    <button id="settingTab">設定清單</button>
 </div>
 
 <div id="wheelPage">
+    <select id="categorySelect">
+        <option value="all">全部</option>
+        <option value="main">正餐</option>
+        <option value="snack">小吃</option>
+        <option value="dessert">飲料甜點</option>
+    </select>
     <div id="wheel">
         <div id="itemContainer"></div>
+        <div id="totalCount"></div>
     </div>
     <button id="startBtn">開始</button>
     <div id="result"></div>
 </div>
 
-<div id="settingsPage" style="display: none;">
+<div id="settingsPage" style="display:none;">
+    <select id="settingCategorySelect">
+        <option value="main">正餐</option>
+        <option value="snack">小吃</option>
+        <option value="dessert">飲料甜點</option>
+    </select>
+    <div id="settingTotalCount"></div>
     <textarea id="foodList"></textarea><br>
     <button id="saveBtn">儲存清單</button>
 </div>
 
 <script>
-    let foods = [];
-
-    const itemContainer = document.getElementById('itemContainer');
-    const result = document.getElementById('result');
-    const foodList = document.getElementById('foodList');
-
-    function showPage(page) {
-        document.getElementById('wheelPage').style.display = page === 'wheelPage' ? 'block' : 'none';
-        document.getElementById('settingsPage').style.display = page === 'settingsPage' ? 'block' : 'none';
-    }
-
-    function createItems() {
-        itemContainer.innerHTML = '';
-        const div = document.createElement('div');
-        div.className = 'item';
-        div.textContent = '準備抽選...';
-        itemContainer.appendChild(div);
-    }
-
-    function loadFoods() {
-        const storedFoods = localStorage.getItem('foods');
-        if (storedFoods) {
-            foods = JSON.parse(storedFoods);
-        } else {
-            foods = [
-                '姊妹牛羊肉', '黃記辣脆腸', '小川家', '夜夜見來蛋包飯', 'Q禾豐邑',
-                '徐大姊炸香香', '阿緣鹽酥雞香雞排', '味泉米糕', '忠孝夜市明哥滷味',
-                '南台中肉員', '沙茶魷魚羹', '大碗公剉冰-忠孝店', '黃金蛋包飯（炒麵、燴飯）',
-                '正老牌臭豆腐麵線糊', '桂香麻醬麵', '老夫子牛排', '嗑肉石鍋 （忠孝店）'
-            ];
-        }
-        foodList.value = foods.join('\n');
-    }
-
-    function startSpin() {
-        loadFoods();
-        if (foods.length === 0) {
-            alert('請先設定店家名稱！');
-            return;
-        }
+document.addEventListener('DOMContentLoaded', function() {
+function showPage(page) {
+    document.getElementById('wheelPage').style.display = page === 'wheelPage' ? 'block' : 'none';
+    document.getElementById('settingsPage').style.display = page === 'settingsPage' ? 'block' : 'none';
+    if (page === 'wheelPage') {
+        createItems();
         result.style.display = 'none';
-        let elapsed = 0;
-        let interval = 50;
-        const totalDuration = 4000;
-        const maxInterval = 300;
-
-        const timer = setInterval(() => {
-            const randomIndex = Math.floor(Math.random() * foods.length);
-            itemContainer.innerHTML = `<div class="item">${foods[randomIndex]}</div>`;
-            elapsed += interval;
-
-            if (elapsed >= totalDuration) {
-                clearInterval(timer);
-                const finalFood = foods[randomIndex];
-                result.textContent = `今天吃：${finalFood}`;
-                result.style.display = 'block';
-                result.style.transform = 'scale(1.5)';
-                setTimeout(() => {
-                    result.style.transform = 'scale(1)';
-                }, 300);
-            }
-            if (interval < maxInterval) {
-                interval += 10;
-            }
-        }, interval);
     }
+}
 
-    function saveFoods() {
-        const lines = foodList.value.split('\n').map(line => line.trim()).filter(line => line);
-        foods = lines;
-        localStorage.setItem('foods', JSON.stringify(foods));
-        alert('已儲存清單！');
+const foods = {
+    main: ['熊家湯包', '巫茶泰', '巫泰式燒烤', '味泉米糕店', '小川家', '海將軍12元壽司', '御姐越南法式手工麵包', '享麻酸辣粉', '川涼涼滷KAWARYORYO', '夯霸燒肉飯', '麵先森滑蛋蝦仁飯', '夜夜見來蛋包飯', '沙茶魷魚焿', '忠孝路小籠包', '牧禾堂', '大胖排骨飯.蚵仔煎', '1973古早味陽春麵', '忠孝夜市廣式滷味', '狀元紅廣東粥、鍋燒麵', '胖嫂大餛飩', '好萊自助餐', '幸花鷄白湯拉麵', '源池上飯包', '鷄伯嘉義火雞肉飯', '朝正泰南洋料理', '唯吾知足自在素食'],
+    snack: ['徐大姐炸香香', '怪獸披薩', '卡霸咬一口 Tasty Bitez', '肉一手 肉夾饃', '老牌潤餅大王', 'Q禾豐邑地瓜球', '可以可以地瓜球', '蛋四分雞蛋仔交易所', '掌門人雞蛋糕', '菱角俠菱角酥', '阿緣鹽酥雞', '興達港香炸螃蟹', '望高樓 串串燒 雞蛋仔', '植人炸雞忠孝總店', '益廚現烤酥皮濃湯'],
+    dessert: ['茗陽甘蔗牛奶大王', '炎伯紅茶', '蔡家豆花', '永德堂', '巫茶泰', '50嵐', '清心', '參杯', '大苑子', '台灣第一味', '南海茶道', '古玥茶', '花茶大師', '新井茶', '大茗', '龜記茗品']
+};
+
+let currentFoods = [];
+let lastFood = '';
+const itemContainer = document.getElementById('itemContainer');
+const result = document.getElementById('result');
+const totalCount = document.getElementById('totalCount');
+const settingTotalCount = document.getElementById('settingTotalCount');
+const categorySelect = document.getElementById('categorySelect');
+const settingCategorySelect = document.getElementById('settingCategorySelect');
+const foodList = document.getElementById('foodList');
+
+function createItems() {
+    itemContainer.innerHTML = '';
+    const div = document.createElement('div');
+    div.className = 'item';
+    div.textContent = '準備抽選...';
+    itemContainer.appendChild(div);
+}
+
+function loadFoods() {
+    const category = categorySelect.value;
+    if (category === 'all') {
+        currentFoods = [...foods.main, ...foods.snack, ...foods.dessert];
+    } else {
+        currentFoods = foods[category];
     }
-
-    document.getElementById('startBtn').addEventListener('click', startSpin);
-    document.getElementById('saveBtn').addEventListener('click', saveFoods);
-
+    totalCount.textContent = `總家數：${currentFoods.length} 家`;
     createItems();
+    result.style.display = 'none';
+}
+
+function loadSettingFoods() {
+    const category = settingCategorySelect.value;
+    foodList.value = foods[category].join('\n');
+    settingTotalCount.textContent = `總家數：${foods[category].length} 家`;
+}
+
+function startSpin() {
     loadFoods();
+    if (currentFoods.length === 0) {
+        alert('此分類沒有資料，請重新選擇！');
+        return;
+    }
+    result.style.display = 'none';
+    let elapsed = 0;
+    let interval = 50;
+    const totalDuration = 4000;
+    const maxInterval = 300;
+    const timer = setInterval(() => {
+        let randomIndex = Math.floor(Math.random() * currentFoods.length);
+        let selectedFood = currentFoods[randomIndex];
+        if (elapsed >= totalDuration && selectedFood === lastFood) {
+            randomIndex = (randomIndex + 1) % currentFoods.length;
+            selectedFood = currentFoods[randomIndex];
+        }
+        itemContainer.innerHTML = `<div class="item">${selectedFood}</div>`;
+        elapsed += interval;
+        if (elapsed >= totalDuration) {
+            clearInterval(timer);
+            lastFood = selectedFood;
+            result.textContent = `今天吃：${selectedFood}`;
+            result.style.display = 'block';
+            result.style.transform = 'scale(1.5)';
+            setTimeout(() => {
+                result.style.transform = 'scale(1)';
+            }, 300);
+        }
+        if (interval < maxInterval) {
+            interval += 10;
+        }
+    }, interval);
+}
+
+function saveFoods() {
+    const category = settingCategorySelect.value;
+    const lines = foodList.value.split('\n').map(line => line.trim()).filter(line => line);
+    foods[category] = lines;
+    alert('已儲存清單！');
+    settingTotalCount.textContent = `總家數：${foods[category].length} 家`;
+}
+
+document.getElementById('wheelTab').addEventListener('click', () => showPage('wheelPage'));
+document.getElementById('settingTab').addEventListener('click', () => showPage('settingsPage'));
+document.getElementById('startBtn').addEventListener('click', startSpin);
+document.getElementById('saveBtn').addEventListener('click', saveFoods);
+categorySelect.addEventListener('change', loadFoods);
+settingCategorySelect.addEventListener('change', loadSettingFoods);
+createItems();
+loadFoods();
+loadSettingFoods();
+});
 </script>
 
 </body>
