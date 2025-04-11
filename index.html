@@ -75,18 +75,20 @@
         height: 48px;
         line-height: 48px;
     }
-    #result {
-        margin-top: 24px;
-        font-size: 34px;
-        font-weight: bold;
-        color: #E91E63;
-        display: none;
-        transition: transform 0.3s ease, opacity 0.3s ease;
-    }
     #recentDraws {
         margin-top: 20px;
-        font-size: 18px;
-        color: #555;
+        display: flex;
+        justify-content: center;
+        flex-wrap: wrap;
+        gap: 10px;
+    }
+    .recent-card {
+        padding: 10px 20px;
+        background: #E0FFFF;
+        border: 2px solid #ADD8E6;
+        border-radius: 12px;
+        box-shadow: 2px 2px 6px rgba(0,0,0,0.1);
+        font-size: 16px;
     }
     #totalCount, #settingTotalCount {
         margin-top: 10px;
@@ -115,9 +117,6 @@
             height: 160px;
             font-size: 24px;
         }
-        #result {
-            font-size: 28px;
-        }
         #foodList {
             height: 200px;
         }
@@ -145,7 +144,6 @@
     </div>
     <button id="startBtn">開始</button>
     <div id="recentDraws"></div>
-    <div id="result"></div>
 </div>
 
 <div id="settingsPage" style="display:none;">
@@ -161,16 +159,17 @@
 
 <script>
 document.addEventListener('DOMContentLoaded', function() {
-    const foods = {
+   const foods = {
         main: ['熊家湯包', '巫茶泰', '巫泰式燒烤', '味泉米糕店', '小川家', '海將軍12元壽司', '御姐越南法式手工麵包', '享麻酸辣粉', '川涼涼滷KAWARYORYO', '夯霸燒肉飯', '麵先森滑蛋蝦仁飯', '夜夜見來蛋包飯', '沙茶魷魚焿', '忠孝路小籠包', '牧禾堂', '大胖排骨飯.蚵仔煎', '1973古早味陽春麵', '忠孝夜市廣式滷味', '狀元紅廣東粥、鍋燒麵', '胖嫂大餛飩', '好萊自助餐', '幸花鷄白湯拉麵', '源池上飯包', '鷄伯嘉義火雞肉飯', '朝正泰南洋料理', '唯吾知足自在素食'],
         snack: ['徐大姐炸香香', '怪獸披薩', '卡霸咬一口 Tasty Bitez', '肉一手 肉夾饃', '老牌潤餅大王', 'Q禾豐邑地瓜球', '可以可以地瓜球', '蛋四分雞蛋仔交易所', '掌門人雞蛋糕', '菱角俠菱角酥', '阿緣鹽酥雞', '興達港香炸螃蟹', '望高樓 串串燒 雞蛋仔', '植人炸雞忠孝總店', '益廚現烤酥皮濃湯'],
         dessert: ['茗陽甘蔗牛奶大王', '炎伯紅茶', '蔡家豆花', '永德堂', '巫茶泰', '50嵐', '清心', '參杯', '大苑子', '台灣第一味', '南海茶道', '古玥茶', '花茶大師', '新井茶', '大茗', '龜記茗品']
     };
 
     let currentFoods = [];
-    let lastFood = '';
+    let recentDrawsList = [];
+    const recentMax = 3;
+
     const itemContainer = document.getElementById('itemContainer');
-    const result = document.getElementById('result');
     const totalCount = document.getElementById('totalCount');
     const settingTotalCount = document.getElementById('settingTotalCount');
     const categorySelect = document.getElementById('categorySelect');
@@ -195,7 +194,6 @@ document.addEventListener('DOMContentLoaded', function() {
         }
         totalCount.textContent = `總家數：${currentFoods.length} 家`;
         createItems();
-        result.style.display = 'none';
     }
 
     function loadSettingFoods() {
@@ -210,7 +208,6 @@ document.addEventListener('DOMContentLoaded', function() {
             alert('此分類沒有資料，請重新選擇！');
             return;
         }
-        result.style.display = 'none';
         let elapsed = 0;
         let interval = 50;
         const totalDuration = 4000;
@@ -218,33 +215,26 @@ document.addEventListener('DOMContentLoaded', function() {
         const timer = setInterval(() => {
             let randomIndex = Math.floor(Math.random() * currentFoods.length);
             let selectedFood = currentFoods[randomIndex];
-            while (selectedFood === lastFood && currentFoods.length > 1) {
+            while (recentDrawsList.includes(selectedFood) && currentFoods.length > recentMax) {
                 randomIndex = Math.floor(Math.random() * currentFoods.length);
                 selectedFood = currentFoods[randomIndex];
             }
             itemContainer.innerHTML = `<div class="item">${selectedFood}</div>`;
             elapsed += interval;
+
             if (elapsed >= totalDuration) {
                 clearInterval(timer);
-                lastFood = selectedFood;
-                result.textContent = `今天吃：${selectedFood}`;
-                result.style.display = 'block';
-                result.style.transform = 'scale(1.5)';
-                setTimeout(() => { result.style.transform = 'scale(1)'; }, 300);
+                recentDrawsList.unshift(selectedFood);
+                if (recentDrawsList.length > recentMax) recentDrawsList.pop();
 
-                if (!window.recentDrawsList) window.recentDrawsList = [];
-                window.recentDrawsList.unshift(selectedFood);
-                if (window.recentDrawsList.length > 3) window.recentDrawsList.pop();
                 const recentDrawsContainer = document.getElementById('recentDraws');
-                if (recentDrawsList.length > 0) {
-                    recentDrawsContainer.innerHTML = '<b>最近抽過：</b><br>' + window.recentDrawsList.map((food, index) => `${index + 1}. ${food}`).join('<br>');
-                } else {
-                    recentDrawsContainer.innerHTML = '';
-                }
+                recentDrawsContainer.innerHTML = recentDrawsList.map(food => `<div class="recent-card">${food}</div>`).join('');
             }
+
             if (interval < maxInterval) interval += 10;
         }, interval);
     }
+	
 
     function saveFoods() {
         const category = settingCategorySelect.value;
@@ -259,7 +249,6 @@ document.addEventListener('DOMContentLoaded', function() {
         document.getElementById('settingsPage').style.display = page === 'settingsPage' ? 'block' : 'none';
         if (page === 'wheelPage') {
             createItems();
-            result.style.display = 'none';
         }
     }
 
