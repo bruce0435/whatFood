@@ -36,7 +36,7 @@
 ## 🛠 技術素材
 
 - HTML5
-- CSS3 (RWD 音應式設計)
+- CSS3 (RWD 響應式設計)
 - JavaScript Vanilla (無框架純純 JS)
 
 ---
