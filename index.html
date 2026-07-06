@@ -2,12 +2,32 @@
 <html lang="zh-Hant">
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>吃什麼？ / What to Eat?</title>
   <style>
- /* ========== 基本樣式 ========== */
-    body{font-family:'Microsoft JhengHei',sans-serif;background:linear-gradient(135deg,#FAFAFA,#f8f8f8);text-align:center;padding:20px;color:#333;position:relative}
-    h1{margin-top:20px;font-size:36px;color:#006666;letter-spacing:2px}
-    h2{font-size:28px;color:#008B8B;margin:24px 0 12px}
+    /* ========== 主題變數 ========== */
+    :root{
+      --color-bg-start:#FAFAFA;
+      --color-bg-end:#f8f8f8;
+      --color-text:#333;
+      --color-primary:#008B8B;
+      --color-primary-dark:#006666;
+      --color-border:#ADD8E6;
+      --color-card-bg:#E0FFFF;
+      --color-muted:#666;
+      --radius-lg:16px;
+      --radius-md:12px;
+      --radius-sm:8px;
+      --shadow-sm:0 4px 8px rgba(0,0,0,.1);
+      --shadow-md:0 6px 10px rgba(0,0,0,.2);
+      --transition:.3s;
+    }
+    *{box-sizing:border-box}
+
+    /* ========== 基本樣式 ========== */
+    body{font-family:'Microsoft JhengHei',sans-serif;background:linear-gradient(135deg,var(--color-bg-start),var(--color-bg-end));text-align:center;padding:20px;color:var(--color-text);position:relative}
+    h1{margin-top:20px;font-size:36px;color:var(--color-primary-dark);letter-spacing:2px}
+    h2{font-size:28px;color:var(--color-primary);margin:24px 0 12px}
     p{font-size:18px;line-height:1.6;margin:6px 0}
     ul{list-style:disc;margin:0 auto 20px;padding-left:24px;max-width:680px;text-align:left;font-size:18px;line-height:1.6}
 
@@ -15,32 +35,34 @@
     .tab button,
     #startBtn,
     #saveBtn,
-    .btn,.btn{padding:16px 32px;font-size:22px;margin:10px;border:2px solid #ADD8E6;background:#FFF;color:#008B8B;cursor:pointer;border-radius:16px;box-shadow:0 4px 8px rgba(0,0,0,.1);transition:.3s}
-    .tab button:hover,#startBtn:hover,#saveBtn:hover,.btn:hover,.lang-btn:hover{background:#008B8B;color:#FFF;border-color:#008B8B;box-shadow:0 6px 10px rgba(0,0,0,.2)}
+    .btn{padding:16px 32px;font-size:22px;margin:10px;border:2px solid var(--color-border);background:#FFF;color:var(--color-primary);cursor:pointer;border-radius:var(--radius-lg);box-shadow:var(--shadow-sm);transition:var(--transition)}
+    .tab button:hover,#startBtn:hover,#saveBtn:hover,.btn:hover,.lang-btn:hover{background:var(--color-primary);color:#FFF;border-color:var(--color-primary);box-shadow:var(--shadow-md)}
+    .tab button:focus-visible,#startBtn:focus-visible,#saveBtn:focus-visible,.btn:focus-visible,.lang-btn:focus-visible,select:focus-visible{outline:3px solid var(--color-primary-dark);outline-offset:2px}
 
     /* 功能列 */
     .tab{margin-top:20px;display:flex;flex-wrap:wrap;justify-content:center;gap:15px}
-    .lang-btn,.top-btn{position:absolute;top:18px;padding:10px 24px;font-size:20px;border:2px solid #ADD8E6;background:#FFF;color:#008B8B;border-radius:16px;box-shadow:0 4px 8px rgba(0,0,0,.1);transition:.3s}
+    .lang-btn,.top-btn{position:absolute;top:18px;padding:10px 24px;font-size:20px;border:2px solid var(--color-border);background:#FFF;color:var(--color-primary);border-radius:var(--radius-lg);box-shadow:var(--shadow-sm);transition:var(--transition)}
     #aboutBtn{right:140px}
     #langBtn{right:20px}
 
-    select{margin-top:20px;font-size:20px;padding:10px 16px;border-radius:8px;border:2px solid #ADD8E6}
+    select{margin-top:20px;font-size:20px;padding:10px 16px;border-radius:var(--radius-sm);border:2px solid var(--color-border)}
 
     /* 轉盤 */
-    #wheel{width:90%;max-width:600px;height:180px;margin:20px auto;border:3px dashed #008B8B;background:#FFF;display:flex;align-items:center;justify-content:center;font-size:28px;font-weight:bold;border-radius:16px;box-shadow:0 6px 12px rgba(0,0,0,.1)}
+    #wheel{width:90%;max-width:600px;height:180px;margin:20px auto;border:3px dashed var(--color-primary);background:#FFF;display:flex;align-items:center;justify-content:center;font-size:28px;font-weight:bold;border-radius:var(--radius-lg);box-shadow:0 6px 12px rgba(0,0,0,.1)}
     .item{height:48px;line-height:48px}
 
     /* 最近抽過 */
     #recentDraws{margin-top:20px;display:flex;justify-content:center;flex-wrap:wrap;gap:10px}
-    .recent-card{padding:10px 20px;background:#E0FFFF;border:2px solid #ADD8E6;border-radius:12px;box-shadow:2px 2px 6px rgba(0,0,0,.1);font-size:16px;cursor:pointer;transition:.2s}
+    .recent-card{padding:10px 20px;background:var(--color-card-bg);border:2px solid var(--color-border);border-radius:var(--radius-md);box-shadow:2px 2px 6px rgba(0,0,0,.1);font-size:16px;cursor:pointer;transition:.2s}
     .recent-card:hover{transform:scale(1.05)}
     .recent-card:active{opacity:.6}
 
-    #totalCount,#settingTotalCount{margin-top:10px;font-size:18px;color:#666}
-    #foodList{width:90%;max-width:400px;height:220px;font-size:18px;padding:10px;border:2px solid #ADD8E6;border-radius:8px}
+    #totalCount,#settingTotalCount{margin-top:10px;font-size:18px;color:var(--color-muted)}
+    #foodList{width:90%;max-width:400px;height:220px;font-size:18px;padding:10px;border:2px solid var(--color-border);border-radius:var(--radius-sm);font-family:inherit}
 
     /* About */
     #aboutPage{display:none;max-width:860px;margin:0 auto;text-align:center}
+    .legacy-link{display:inline-block;margin-top:12px;font-size:14px;color:var(--color-primary)}
 
     @media(max-width:600px){h1{font-size:28px}.tab button,#startBtn,#saveBtn{width:90%;padding:14px 24px;font-size:20px}.lang-btn,.top-btn{font-size:18px;padding:8px 20px}#aboutBtn{right:110px}#wheel{height:160px;font-size:24px}#foodList{height:200px}}
   </style>
@@ -68,7 +90,7 @@
     <option value="dessert">飲料甜點</option>
   </select>
   <div id="wheel">
-    <div id="itemContainer"></div>
+    <div id="itemContainer" aria-live="polite"></div>
     <div id="totalCount"></div>
   </div>
   <button id="startBtn">開始</button>
@@ -96,71 +118,78 @@
   <ul>
     <li>支援三大分類：正餐／小吃／飲料甜點</li>
     <li>按鈕切換轉盤與清單設定頁</li>
-    <li>可自訂分類內店家清單</li>
+    <li>可自訂分類內店家清單，並自動保存在瀏覽器中</li>
     <li>抽選動畫會慢慢減速，增加期待感</li>
     <li>防止連抽到同一家</li>
     <li>簡潔清爽的介面設計</li>
   </ul>
 
+  <p><a class="legacy-link" href="legacy/index.html">查看舊版網頁 / View the legacy version</a></p>
+
   <button id="backHome" class="btn">回到首頁</button>
 </div>
 
 <script>
-/* ---------- 多語系文字 ---------- */
-const i18n = {
-  zh: {
-    title: "吃什麼？",
-    wheelTab: "開始抽選！",
-    settingTab: "設定清單",
-    start: "開始",
-    save: "儲存清單",
-    lang: "English",
-    cat: {
-      all: "全部",
-      main: "正餐",
-      snack: "小吃",
-      dessert: "飲料甜點",
-    },
-	aboutBtn:'About', 
-	home:'回到首頁' ,
-  },
-  en: {
-    title: "What to Eat?",
-    wheelTab: "Spin!",
-    settingTab: "Settings",
-    start: "Start",
-    save: "Save",
-    lang: "中文",
-    cat: {
-      all: "All",
-      main: "Main",
-      snack: "Snack",
-      dessert: "Dessert",
-    }, aboutBtn:'關於', home:'Home' ,
-  },
-};
+const STORAGE_KEY = "whatFood:foods";
 let lang = "zh";
 
-/* ---------- 其餘功能 ---------- */
 window.addEventListener("DOMContentLoaded", () => {
-  /* 取得 DOM 變數 */
-  const categorySelect = document.getElementById("categorySelect");
-  const settingCategorySelect = document.getElementById("settingCategorySelect");
-  const itemContainer = document.getElementById("itemContainer");
-  const totalCount = document.getElementById("totalCount");
-  const settingTotalCount = document.getElementById("settingTotalCount");
-  const recentDraws = document.getElementById("recentDraws");
-  const langBtn = document.getElementById("langBtn");
-  const wheelTab = document.getElementById("wheelTab");
-  const settingTab = document.getElementById("settingTab");
-  const startBtn = document.getElementById("startBtn");
-  const saveBtn = document.getElementById("saveBtn");
-  const aboutBtn = document.getElementById("aboutBtn");
-  const backHome = document.getElementById("backHome");
-  const foodList = document.getElementById("foodList");
+  /* ---------- 多語系文字 ---------- */
+  const i18n = {
+    zh: {
+      title: "吃什麼？",
+      wheelTab: "開始抽選！",
+      settingTab: "設定清單",
+      start: "開始",
+      save: "儲存清單",
+      lang: "English",
+      cat: {
+        all: "全部",
+        main: "正餐",
+        snack: "小吃",
+        dessert: "飲料甜點",
+      },
+      aboutBtn: "About",
+      home: "回到首頁",
+    },
+    en: {
+      title: "What to Eat?",
+      wheelTab: "Spin!",
+      settingTab: "Settings",
+      start: "Start",
+      save: "Save",
+      lang: "中文",
+      cat: {
+        all: "All",
+        main: "Main",
+        snack: "Snack",
+        dessert: "Dessert",
+      },
+      aboutBtn: "關於",
+      home: "Home",
+    },
+  };
 
-  /* 店家清單 */
-  const foods = {
+  /* ---------- DOM 快取 ---------- */
+  const dom = {
+    categorySelect: document.getElementById("categorySelect"),
+    settingCategorySelect: document.getElementById("settingCategorySelect"),
+    itemContainer: document.getElementById("itemContainer"),
+    totalCount: document.getElementById("totalCount"),
+    settingTotalCount: document.getElementById("settingTotalCount"),
+    recentDraws: document.getElementById("recentDraws"),
+    langBtn: document.getElementById("langBtn"),
+    wheelTab: document.getElementById("wheelTab"),
+    settingTab: document.getElementById("settingTab"),
+    startBtn: document.getElementById("startBtn"),
+    saveBtn: document.getElementById("saveBtn"),
+    aboutBtn: document.getElementById("aboutBtn"),
+    backHome: document.getElementById("backHome"),
+    foodList: document.getElementById("foodList"),
+  };
+
+  /* ---------- 預設店家清單 ---------- */
+  const defaultFoods = {
     main: [
       "熊家湯包",
       "巫茶泰",
@@ -226,13 +255,35 @@ window.addEventListener("DOMContentLoaded", () => {
     ],
   };
 
+  /* ---------- 清單持久化 (localStorage) ---------- */
+  function loadPersistedFoods() {
+    try {
+      const raw = localStorage.getItem(STORAGE_KEY);
+      const parsed = raw && JSON.parse(raw);
+      if (parsed && parsed.main && parsed.snack && parsed.dessert) return parsed;
+    } catch (err) {
+      /* localStorage 不可用或資料損毀時，忽略並使用預設清單 */
+    }
+    return null;
+  }
+
+  function persistFoods() {
+    try {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(foods));
+    } catch (err) {
+      /* 忽略無法寫入的情況 (例如無痕模式) */
+    }
+  }
+
+  const foods = loadPersistedFoods() || defaultFoods;
+
   let currentFoods = [];
   let recentDrawsList = []; // 抽過的陣列
   const recentMax = 3; // 不重複次數
 
   /* 函式：渲染最近抽過 */
   function renderRecent() {
-    recentDraws.innerHTML = recentDrawsList
+    dom.recentDraws.innerHTML = recentDrawsList
       .map(
         (food, idx) =>
           `<div class="recent-card" data-idx="${idx}">${food}</div>`
@@ -242,40 +293,34 @@ window.addEventListener("DOMContentLoaded", () => {
 
   /* 函式：初始化轉盤顯示 */
   function createItems() {
-    totalCount.style.display = "block";
-    itemContainer.innerHTML = "<div class='item'>準備抽選...</div>";
+    dom.totalCount.style.display = "block";
+    dom.itemContainer.innerHTML = "<div class='item'>準備抽選...</div>";
   }
 
   /* 函式：載入清單 (for 轉盤) */
   function loadFoods() {
-    const cat = categorySelect.value;
-    if (cat === "all") {
-      currentFoods = [
-        ...foods.main,
-        ...foods.snack,
-        ...foods.dessert,
-      ];
-    } else {
-      currentFoods = foods[cat];
-    }
-    totalCount.textContent = `總家數：${currentFoods.length} 家`;
+    const cat = dom.categorySelect.value;
+    currentFoods = cat === "all"
+      ? [...foods.main, ...foods.snack, ...foods.dessert]
+      : foods[cat];
+    dom.totalCount.textContent = `總家數：${currentFoods.length} 家`;
     createItems();
   }
 
   /* 函式：載入清單 (for 設定) */
   function loadSettingFoods() {
-    const cat = settingCategorySelect.value;
-    foodList.value = foods[cat].join("\n");
-    settingTotalCount.textContent = `總家數：${foods[cat].length} 家`;
+    const cat = dom.settingCategorySelect.value;
+    dom.foodList.value = foods[cat].join("\n");
+    dom.settingTotalCount.textContent = `總家數：${foods[cat].length} 家`;
   }
 
   /* 函式：開始抽選 */
-function startSpin() {
+  function startSpin() {
     if (!currentFoods.length) {
       alert("此分類沒有資料，請重新選擇！");
       return;
     }
-    totalCount.style.display = "none";
+    dom.totalCount.style.display = "none";
 
     let elapsed = 0;
     let interval = 50;
@@ -291,7 +336,7 @@ function startSpin() {
         selectedFood = currentFoods[idx];
       }
 
-      itemContainer.innerHTML = `<div class="item">${selectedFood}</div>`;
+      dom.itemContainer.innerHTML = `<div class="item">${selectedFood}</div>`;
       elapsed += interval;
 
       if (elapsed >= totalDuration) {
@@ -308,24 +353,16 @@ function startSpin() {
     spinStep();
   }
 
-  /* 事件：小卡片點擊 -> 刪除 */
-  recentDraws.addEventListener("click", (e) => {
-    const card = e.target.closest(".recent-card");
-    if (!card) return; // 不是點到卡片
-    const idx = +card.dataset.idx;
-    recentDrawsList.splice(idx, 1);
-    renderRecent();
-  });
-
   /* 函式：儲存清單 (for 設定頁) */
   function saveFoods() {
-    const cat = settingCategorySelect.value;
-    foods[cat] = foodList.value
+    const cat = dom.settingCategorySelect.value;
+    foods[cat] = dom.foodList.value
       .split("\n")
       .map((s) => s.trim())
       .filter(Boolean);
+    persistFoods();
     alert("已儲存清單！");
-    settingTotalCount.textContent = `總家數：${foods[cat].length} 家`;
+    dom.settingTotalCount.textContent = `總家數：${foods[cat].length} 家`;
   }
 
   /* 函式：分頁切換 */
@@ -342,27 +379,51 @@ function startSpin() {
   function applyLang() {
     const t = i18n[lang];
     document.getElementById("pageTitle").textContent = t.title;
-    wheelTab.textContent = t.wheelTab;
-    settingTab.textContent = t.settingTab;
-    startBtn.textContent = t.start;
-    saveBtn.textContent = t.save;
-    langBtn.textContent = t.lang;
+    dom.wheelTab.textContent = t.wheelTab;
+    dom.settingTab.textContent = t.settingTab;
+    dom.startBtn.textContent = t.start;
+    dom.saveBtn.textContent = t.save;
+    dom.langBtn.textContent = t.lang;
 
     // 轉盤頁下拉選單
-    const cSel = categorySelect.options;
+    const cSel = dom.categorySelect.options;
     cSel[0].text = t.cat.all;
     cSel[1].text = t.cat.main;
     cSel[2].text = t.cat.snack;
     cSel[3].text = t.cat.dessert;
 
     // 設定頁下拉選單
-    const sSel = settingCategorySelect.options;
+    const sSel = dom.settingCategorySelect.options;
     sSel[0].text = t.cat.main;
     sSel[1].text = t.cat.snack;
     sSel[2].text = t.cat.dessert;
-    aboutBtn.textContent = t.aboutBtn;
-    backHome.textContent = t.home;
+    dom.aboutBtn.textContent = t.aboutBtn;
+    dom.backHome.textContent = t.home;
   }
+
+  /* 事件：小卡片點擊 -> 刪除 */
+  dom.recentDraws.addEventListener("click", (e) => {
+    const card = e.target.closest(".recent-card");
+    if (!card) return; // 不是點到卡片
+    const idx = +card.dataset.idx;
+    recentDrawsList.splice(idx, 1);
+    renderRecent();
+  });
+
+  /* 綁定事件 */
+  dom.langBtn.onclick = () => {
+    lang = lang === "zh" ? "en" : "zh";
+    applyLang();
+  };
+  dom.aboutBtn.onclick = () => showPage("aboutPage");
+  dom.backHome.onclick = () => showPage("wheelPage");
+  dom.wheelTab.onclick = () => showPage("wheelPage");
+  dom.settingTab.onclick = () => showPage("settingsPage");
+  dom.startBtn.onclick = startSpin;
+  dom.saveBtn.onclick = saveFoods;
+  dom.categorySelect.onchange = loadFoods;
+  dom.settingCategorySelect.onchange = loadSettingFoods;
+
   /* 初始化 */
   applyLang(); // 初始化語言
   showPage("wheelPage"); // 預設顯示轉盤頁
@@ -370,19 +431,6 @@ function startSpin() {
   loadSettingFoods();
   renderRecent();
 
-  /* 綁定事件 */
-  langBtn.onclick = () => {
-    lang = lang === "zh" ? "en" : "zh";
-    applyLang();
-  };
-  aboutBtn.onclick = () => showPage("aboutPage");
-backHome.onclick = () => showPage("wheelPage");
-  wheelTab.onclick = () => showPage("wheelPage");
-  settingTab.onclick = () => showPage("settingsPage");
-  startBtn.onclick = startSpin;
-  saveBtn.onclick = saveFoods;
-  categorySelect.onchange = loadFoods;
-  settingCategorySelect.onchange = loadSettingFoods;
   window.applyLang = applyLang;
   window.startSpin = startSpin;
   window.currentFoods = currentFoods;

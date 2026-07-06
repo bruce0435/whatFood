@@ -29,7 +29,10 @@
 
 | 檔案 | 說明 |
 |:--|:--|
-| `index.html` | 主程式：包含 HTML + CSS + JavaScript，一頁完成所有功能 |
+| `index.html` | 主程式（重構版）：包含 HTML + CSS + JavaScript，一頁完成所有功能 |
+| `legacy/index.html` | 舊版網頁，原封不動保留，供對照或備用 |
+
+> 重構版在「About」頁面提供「查看舊版網頁」連結，可隨時切換回舊版。重構內容包含：CSS 變數化、JS 邏輯模組化（DOM 快取、函式拆分）、自訂清單改為儲存在瀏覽器 `localStorage`，介面與功能行為皆維持一致。
 
 ---
 
